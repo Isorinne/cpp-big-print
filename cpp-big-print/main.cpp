@@ -62,6 +62,9 @@ public:
 	~BinaryChars() {
 
 	}
+
+
+
 };
 
 vector<string> split_string(const string& str, int split_length)
@@ -138,16 +141,14 @@ void convert_to_output_matrix(vector< vector<int> >(&v1), const vector< vector<i
 
 void bit_printer(const vector< vector<int>>(&v)) {
 
-
 	string bin_line;
-
 
 	for (const auto &row : v) {
 		for (const auto &dec_line : row) {
 			bin_line = bitset<15>(dec_line).to_string('*', ' ');
 			cout << bin_line;
 
-			std::this_thread::sleep_for(std::chrono::milliseconds(12));
+			std::this_thread::sleep_for(std::chrono::milliseconds(4));
 		}
 		cout << endl;
 	}
@@ -165,6 +166,8 @@ unsigned int get_max_bin_chars() {
 
 void big_print(string input) {
 
+	system("cls");
+
 	transform(input.begin(), input.end(), input.begin(), ::tolower);
 
 	unsigned int max_bin_chars = get_max_bin_chars();
@@ -174,13 +177,16 @@ void big_print(string input) {
 	BinaryChars bc;
 	vector<vector<int> > temp_input_matrix;
 	vector< vector< vector<  int> > > input_vector_of_vectors;
+
 	for (auto str : sub_strs) {
 		create_matrix(bc, str, temp_input_matrix);
 		input_vector_of_vectors.push_back(temp_input_matrix);
 		temp_input_matrix.clear();
 	}
+
 	vector< vector<int> > temp_output_vector(12);
 	vector< vector< vector< int > > > output_vector_of_vectors;
+
 	for (auto vec : input_vector_of_vectors) {
 		convert_to_output_matrix(temp_output_vector, vec);
 		output_vector_of_vectors.push_back(temp_output_vector);
@@ -196,12 +202,9 @@ void big_print(string input) {
 
 int main() {
 
-	
 	string input;
-
 	getline(cin, input);
-	system("cls");
-
+	
 	if (input.empty()) input = "boring.";
 
 	big_print(input);
