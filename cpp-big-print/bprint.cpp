@@ -58,7 +58,6 @@ vector<string> split_string(const string& str, int split_length)
 
 void create_matrix(const BinaryChars bc, string input, vector< vector<int> >(&v)) {
 
-
 	for (char &ch : input)
 		switch (ch) {
 		case 'a': v.push_back(bc.a); break;
@@ -93,21 +92,17 @@ void create_matrix(const BinaryChars bc, string input, vector< vector<int> >(&v)
 		case '+': v.push_back(bc.plus); break;
 		case '=': v.push_back(bc.equal); break;
 		case '.': v.push_back(bc.dot); break;
-		default: cout << "Sorry! Can't print that.\n";
-			getchar(); exit(0);
+		default: cout << "Sorry! Can't print that.\n"; getchar(); exit(0);
 		}
 }
 
 void convert_to_output_matrix(vector< vector<int> >(&v1), const vector< vector<int> >(&v2)) {
 
-
 	unsigned int i = 0, j = 0;
-
 
 	for (auto &row : v1) {
 		for (auto &k : v2) {
 			v1[j].push_back(v2[i][j]);
-
 			i++;
 		}
 		j++; i = 0;
@@ -133,6 +128,7 @@ unsigned int get_max_bin_chars() {
 
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	unsigned int columns;
+
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
 	columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
 
@@ -150,26 +146,28 @@ void big_print(string input) {
 	vector<string> sub_strs = split_string(input, max_bin_chars);
 
 	BinaryChars bc;
-	vector<vector<int> > temp_input_matrix;
-	vector< vector< vector<  int> > > input_vector_of_vectors;
+	vector<vector<int>> temp_input_matrix;
+	vector<vector<vector<int>>> input_matrix;
 
 	for (auto str : sub_strs) {
 		create_matrix(bc, str, temp_input_matrix);
-		input_vector_of_vectors.push_back(temp_input_matrix);
+		input_matrix.push_back(temp_input_matrix);
+
 		temp_input_matrix.clear();
 	}
 
-	vector< vector<int> > temp_output_vector(12);
-	vector< vector< vector< int > > > output_vector_of_vectors;
+	vector<vector<int>> temp_output_matrix(12);
+	vector<vector<vector<int>>> output_matrix;
 
-	for (auto vec : input_vector_of_vectors) {
-		convert_to_output_matrix(temp_output_vector, vec);
-		output_vector_of_vectors.push_back(temp_output_vector);
-		temp_output_vector.clear();
-		temp_output_vector.resize(12);
+	for (auto vec : input_matrix) {
+		convert_to_output_matrix(temp_output_matrix, vec);
+		output_matrix.push_back(temp_output_matrix);
+
+		temp_output_matrix.clear();
+		temp_output_matrix.resize(12);
 	}
 
-	for (auto vec : output_vector_of_vectors) {
+	for (auto vec : output_matrix) {
 		bit_printer(vec); cout << endl;
 	}
 

@@ -9,5 +9,5 @@ int main() {
 
 	big_print(input);
 
-	std::getchar();
+	getchar();
 }
