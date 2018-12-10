@@ -92,7 +92,7 @@ void create_matrix(const BinaryChars bc, string input, vector< vector<int> >(&v)
 		case '+': v.push_back(bc.plus); break;
 		case '=': v.push_back(bc.equal); break;
 		case '.': v.push_back(bc.dot); break;
-		default: cout << "Sorry! Can't print that.\n"; getchar(); exit(0);
+		default: break;
 		}
 }
 
