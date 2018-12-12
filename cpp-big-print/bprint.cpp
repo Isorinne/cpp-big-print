@@ -1,6 +1,6 @@
 #include "bprint.h";
 
-BinaryChars::BinaryChars() {
+BigPrint::BigPrint() {
 
 	a = { 32767, 28679, 24579, 25571, 25571, 25571, 24579, 24579, 25571, 25571, 25571, 32767 };
 	b = { 32767, 24583, 24579, 25571, 25571, 24583, 24579, 25571, 25571, 24579, 24583, 32767 };
@@ -37,12 +37,11 @@ BinaryChars::BinaryChars() {
 
 }
 
-BinaryChars::~BinaryChars() {
+BigPrint::~BigPrint() {
 
 }
 
-
-vector<string> split_string(const string& str, int split_length)
+vector<string> BigPrint::split_string(const string& str, int split_length)
 {
 	int num_sub_strings = str.length() / split_length;
 	vector<string> sub_strs;
@@ -56,47 +55,47 @@ vector<string> split_string(const string& str, int split_length)
 	return sub_strs;
 }
 
-void create_matrix(const BinaryChars bc, string input, vector< vector<int> >(&v)) {
+void BigPrint::create_matrix(string input, vector< vector<int> >(&matrix)) {
 
 	for (char &ch : input)
 		switch (ch) {
-		case 'a': v.push_back(bc.a); break;
-		case 'b': v.push_back(bc.b); break;
-		case 'c': v.push_back(bc.c); break;
-		case 'd': v.push_back(bc.d); break;
-		case 'e': v.push_back(bc.e); break;
-		case 'f': v.push_back(bc.f); break;
-		case 'g': v.push_back(bc.g); break;
-		case 'h': v.push_back(bc.h); break;
-		case 'i': v.push_back(bc.i); break;
-		case 'j': v.push_back(bc.j); break;
-		case 'k': v.push_back(bc.k); break;
-		case 'l': v.push_back(bc.l); break;
-		case 'm': v.push_back(bc.m); break;
-		case 'n': v.push_back(bc.n); break;
-		case 'o': v.push_back(bc.o); break;
-		case 'p': v.push_back(bc.p); break;
-		case 'q': v.push_back(bc.q); break;
-		case 'r': v.push_back(bc.r); break;
-		case 's': v.push_back(bc.s); break;
-		case 't': v.push_back(bc.t); break;
-		case 'u': v.push_back(bc.u); break;
-		case 'v': v.push_back(bc.v); break;
-		case 'w': v.push_back(bc.w); break;
-		case 'x': v.push_back(bc.x); break;
-		case 'y': v.push_back(bc.y); break;
-		case 'z': v.push_back(bc.z); break;
-		case ' ': v.push_back(bc.space); break;
-		case '!': v.push_back(bc.bang); break;
-		case '-': v.push_back(bc.dash); break;
-		case '+': v.push_back(bc.plus); break;
-		case '=': v.push_back(bc.equal); break;
-		case '.': v.push_back(bc.dot); break;
+		case 'a': matrix.push_back(a); break;
+		case 'b': matrix.push_back(b); break;
+		case 'c': matrix.push_back(c); break;
+		case 'd': matrix.push_back(d); break;
+		case 'e': matrix.push_back(e); break;
+		case 'f': matrix.push_back(f); break;
+		case 'g': matrix.push_back(g); break;
+		case 'h': matrix.push_back(h); break;
+		case 'i': matrix.push_back(i); break;
+		case 'j': matrix.push_back(j); break;
+		case 'k': matrix.push_back(k); break;
+		case 'l': matrix.push_back(l); break;
+		case 'm': matrix.push_back(m); break;
+		case 'n': matrix.push_back(n); break;
+		case 'o': matrix.push_back(o); break;
+		case 'p': matrix.push_back(p); break;
+		case 'q': matrix.push_back(q); break;
+		case 'r': matrix.push_back(r); break;
+		case 's': matrix.push_back(s); break;
+		case 't': matrix.push_back(t); break;
+		case 'u': matrix.push_back(u); break;
+		case 'v': matrix.push_back(v); break;
+		case 'w': matrix.push_back(w); break;
+		case 'x': matrix.push_back(x); break;
+		case 'y': matrix.push_back(y); break;
+		case 'z': matrix.push_back(z); break;
+		case ' ': matrix.push_back(space); break;
+		case '!': matrix.push_back(bang); break;
+		case '-': matrix.push_back(dash); break;
+		case '+': matrix.push_back(plus); break;
+		case '=': matrix.push_back(equal); break;
+		case '.': matrix.push_back(dot); break;
 		default: break;
 		}
 }
 
-void convert_to_output_matrix(vector< vector<int> >(&v1), const vector< vector<int> >(&v2)) {
+void BigPrint::convert_to_output_matrix(vector< vector<int> >(&v1), const vector< vector<int> >(&v2)) {
 
 	unsigned int i = 0, j = 0;
 
@@ -109,11 +108,11 @@ void convert_to_output_matrix(vector< vector<int> >(&v1), const vector< vector<i
 	}
 }
 
-void bit_printer(const vector< vector<int>>(&v)) {
+void BigPrint::bit_printer(const vector< vector<int>>(&matrix)) {
 
 	string bin_line;
 
-	for (const auto &row : v) {
+	for (const auto &row : matrix) {
 		for (const auto &dec_line : row) {
 			bin_line = bitset<15>(dec_line).to_string('*', ' ');
 			cout << bin_line;
@@ -124,7 +123,7 @@ void bit_printer(const vector< vector<int>>(&v)) {
 	}
 }
 
-unsigned int get_max_bin_chars() {
+unsigned int BigPrint::get_max_bin_chars() {
 
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	unsigned int columns;
@@ -135,22 +134,19 @@ unsigned int get_max_bin_chars() {
 	return columns / 15;
 }
 
-void big_print(string input) {
-
-	system("cls");
-
+void BigPrint::driver(string input) {
 	transform(input.begin(), input.end(), input.begin(), ::tolower);
 
 	unsigned int max_bin_chars = get_max_bin_chars();
 
 	vector<string> sub_strs = split_string(input, max_bin_chars);
 
-	BinaryChars bc;
+
 	vector<vector<int>> temp_input_matrix;
 	vector<vector<vector<int>>> input_matrix;
 
 	for (auto str : sub_strs) {
-		create_matrix(bc, str, temp_input_matrix);
+		create_matrix(str, temp_input_matrix);
 		input_matrix.push_back(temp_input_matrix);
 
 		temp_input_matrix.clear();
@@ -170,5 +166,13 @@ void big_print(string input) {
 	for (auto vec : output_matrix) {
 		bit_printer(vec); cout << endl;
 	}
+
+}
+
+void big_print(string input) {
+
+	system("cls");
+	BigPrint printer; 
+	printer.driver(input);
 
 }
