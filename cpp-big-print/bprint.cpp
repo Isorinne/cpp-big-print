@@ -1,4 +1,4 @@
-#include "bprint.h";
+#include "bprint.h"
 
 BigPrint::BigPrint() {
 
@@ -171,7 +171,6 @@ void BigPrint::driver(string input) {
 
 void big_print(string input) {
 
-	system("cls");
 	BigPrint printer; 
 	printer.driver(input);
 

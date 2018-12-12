@@ -13,8 +13,6 @@ using std::vector;
 using std::string;
 using std::bitset;
 using std::cout;
-using std::cin;
-using std::getline;
 using std::endl;
 using std::size_t;
 using std::transform;
