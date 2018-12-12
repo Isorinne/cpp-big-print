@@ -1,43 +1,33 @@
 #pragma once
-
-#include <iostream>
 #include <vector>
 #include <string>
-#include <bitset>
-#include <algorithm>
-#include <chrono>
-#include <thread>
-#include <Windows.h>
 
-using std::vector;
-using std::string;
-using std::bitset;
-using std::cout;
-using std::endl;
-using std::size_t;
-using std::transform;
 
 class BigPrint {
 
 private:
-	vector<int>
+
+	std::vector<int>
 		a, b, c, d, e, f, g, h, i, j, k, l, m,
 		n, o, p, q, r, s, t, u, v, w, x, y, z,
 		space, bang, dash, plus, equal, dot;
+
+	std::vector<std::vector<int>> temp_input_matrix, temp_output_matrix;
+	std::vector<std::vector<std::vector<int>>> input_matrix, output_matrix;
 	
-	vector<string> split_string(const string& str, int split_length);
-	void create_matrix(string input, vector< vector<int> >(&v));
-	void convert_to_output_matrix(vector< vector<int> >(&v1), const vector< vector<int> >(&v2));
-	void bit_printer(const vector< vector<int>>(&v));
-	unsigned int get_max_bin_chars();
+	std::vector<std::string> split_string(const std::string& str, int split_length);
+	void create_matrix(std::string str);
+	void convert_to_output_matrix(const std::vector<std::vector<int> >(&m));
+	void bit_printer(const std::vector< std::vector<int>>(&m));
+	size_t get_max_bin_chars();
 
 public:
 
 	BigPrint();
 	~BigPrint();
-	void driver(string input);
+	void driver(std::string input);
 
 };
 
 
-void big_print(string input);
+void big_print(std::string input);

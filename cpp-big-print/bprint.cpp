@@ -1,4 +1,10 @@
 #include "bprint.h"
+#include <iostream>
+#include <bitset>
+#include <algorithm>
+#include <chrono>
+#include <thread>
+#include <Windows.h>
 
 BigPrint::BigPrint() {
 
@@ -41,10 +47,10 @@ BigPrint::~BigPrint() {
 
 }
 
-vector<string> BigPrint::split_string(const string& str, int split_length)
+std::vector<std::string> BigPrint::split_string(const std::string& str, int split_length)
 {
 	int num_sub_strings = str.length() / split_length;
-	vector<string> sub_strs;
+	std::vector<std::string> sub_strs;
 
 	for (auto i = 0; i < num_sub_strings; i++)
 		sub_strs.push_back(str.substr(i * split_length, split_length));
@@ -55,78 +61,79 @@ vector<string> BigPrint::split_string(const string& str, int split_length)
 	return sub_strs;
 }
 
-void BigPrint::create_matrix(string input, vector< vector<int> >(&matrix)) {
+void BigPrint::create_matrix(std::string str) {
 
-	for (char &ch : input)
+	for (char &ch : str)
 		switch (ch) {
-		case 'a': matrix.push_back(a); break;
-		case 'b': matrix.push_back(b); break;
-		case 'c': matrix.push_back(c); break;
-		case 'd': matrix.push_back(d); break;
-		case 'e': matrix.push_back(e); break;
-		case 'f': matrix.push_back(f); break;
-		case 'g': matrix.push_back(g); break;
-		case 'h': matrix.push_back(h); break;
-		case 'i': matrix.push_back(i); break;
-		case 'j': matrix.push_back(j); break;
-		case 'k': matrix.push_back(k); break;
-		case 'l': matrix.push_back(l); break;
-		case 'm': matrix.push_back(m); break;
-		case 'n': matrix.push_back(n); break;
-		case 'o': matrix.push_back(o); break;
-		case 'p': matrix.push_back(p); break;
-		case 'q': matrix.push_back(q); break;
-		case 'r': matrix.push_back(r); break;
-		case 's': matrix.push_back(s); break;
-		case 't': matrix.push_back(t); break;
-		case 'u': matrix.push_back(u); break;
-		case 'v': matrix.push_back(v); break;
-		case 'w': matrix.push_back(w); break;
-		case 'x': matrix.push_back(x); break;
-		case 'y': matrix.push_back(y); break;
-		case 'z': matrix.push_back(z); break;
-		case ' ': matrix.push_back(space); break;
-		case '!': matrix.push_back(bang); break;
-		case '-': matrix.push_back(dash); break;
-		case '+': matrix.push_back(plus); break;
-		case '=': matrix.push_back(equal); break;
-		case '.': matrix.push_back(dot); break;
+		case 'a': temp_input_matrix.push_back(a); break;
+		case 'b': temp_input_matrix.push_back(b); break;
+		case 'c': temp_input_matrix.push_back(c); break;
+		case 'd': temp_input_matrix.push_back(d); break;
+		case 'e': temp_input_matrix.push_back(e); break;
+		case 'f': temp_input_matrix.push_back(f); break;
+		case 'g': temp_input_matrix.push_back(g); break;
+		case 'h': temp_input_matrix.push_back(h); break;
+		case 'i': temp_input_matrix.push_back(i); break;
+		case 'j': temp_input_matrix.push_back(j); break;
+		case 'k': temp_input_matrix.push_back(k); break;
+		case 'l': temp_input_matrix.push_back(l); break;
+		case 'm': temp_input_matrix.push_back(m); break;
+		case 'n': temp_input_matrix.push_back(n); break;
+		case 'o': temp_input_matrix.push_back(o); break;
+		case 'p': temp_input_matrix.push_back(p); break;
+		case 'q': temp_input_matrix.push_back(q); break;
+		case 'r': temp_input_matrix.push_back(r); break;
+		case 's': temp_input_matrix.push_back(s); break;
+		case 't': temp_input_matrix.push_back(t); break;
+		case 'u': temp_input_matrix.push_back(u); break;
+		case 'v': temp_input_matrix.push_back(v); break;
+		case 'w': temp_input_matrix.push_back(w); break;
+		case 'x': temp_input_matrix.push_back(x); break;
+		case 'y': temp_input_matrix.push_back(y); break;
+		case 'z': temp_input_matrix.push_back(z); break;
+		case ' ': temp_input_matrix.push_back(space); break;
+		case '!': temp_input_matrix.push_back(bang); break;
+		case '-': temp_input_matrix.push_back(dash); break;
+		case '+': temp_input_matrix.push_back(plus); break;
+		case '=': temp_input_matrix.push_back(equal); break;
+		case '.': temp_input_matrix.push_back(dot); break;
 		default: break;
 		}
 }
 
-void BigPrint::convert_to_output_matrix(vector< vector<int> >(&v1), const vector< vector<int> >(&v2)) {
+void BigPrint::convert_to_output_matrix(const std::vector<std::vector<int> >(&m)) {
 
 	unsigned int i = 0, j = 0;
 
-	for (auto &row : v1) {
-		for (auto &k : v2) {
-			v1[j].push_back(v2[i][j]);
+	for (auto &row : temp_output_matrix) {
+		for (auto &k : m) {
+			temp_output_matrix[j].push_back(m[i][j]);
 			i++;
 		}
 		j++; i = 0;
 	}
 }
 
-void BigPrint::bit_printer(const vector< vector<int>>(&matrix)) {
+void BigPrint::bit_printer(const std::vector<std::vector<int>>(&m)) {
 
-	string bin_line;
+	std::string bin_line;
 
-	for (const auto &row : matrix) {
+	for (const auto &row : m) {
 		for (const auto &dec_line : row) {
-			bin_line = bitset<15>(dec_line).to_string('*', ' ');
-			cout << bin_line;
+			bin_line = std::bitset<15>(dec_line).to_string('*', ' ');
+			std::cout << bin_line;
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(4));
 		}
-		cout << endl;
+		std::cout << std::endl;
 	}
+	std::cout << std::endl;
 }
 
-unsigned int BigPrint::get_max_bin_chars() {
+std::size_t BigPrint::get_max_bin_chars() {
 
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	unsigned int columns;
+	std::size_t columns;
 
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
 	columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
@@ -134,42 +141,34 @@ unsigned int BigPrint::get_max_bin_chars() {
 	return columns / 15;
 }
 
-void BigPrint::driver(string input) {
+void BigPrint::driver(std::string input) {
+
 	transform(input.begin(), input.end(), input.begin(), ::tolower);
-
-	unsigned int max_bin_chars = get_max_bin_chars();
-
-	vector<string> sub_strs = split_string(input, max_bin_chars);
-
-
-	vector<vector<int>> temp_input_matrix;
-	vector<vector<vector<int>>> input_matrix;
+	std::size_t max_bin_chars = get_max_bin_chars();
+	std::vector<std::string> sub_strs = split_string(input, max_bin_chars);
 
 	for (auto str : sub_strs) {
-		create_matrix(str, temp_input_matrix);
+		create_matrix(str);
 		input_matrix.push_back(temp_input_matrix);
-
 		temp_input_matrix.clear();
 	}
 
-	vector<vector<int>> temp_output_matrix(12);
-	vector<vector<vector<int>>> output_matrix;
-
-	for (auto vec : input_matrix) {
-		convert_to_output_matrix(temp_output_matrix, vec);
+	for (auto m : input_matrix) {
+		temp_output_matrix.resize(12);
+		convert_to_output_matrix(m);
 		output_matrix.push_back(temp_output_matrix);
 
 		temp_output_matrix.clear();
-		temp_output_matrix.resize(12);
 	}
+	input_matrix.clear();
 
-	for (auto vec : output_matrix) {
-		bit_printer(vec); cout << endl;
-	}
+	for (auto m : output_matrix) bit_printer(m);
+	
+	output_matrix.clear();
 
 }
 
-void big_print(string input) {
+void big_print(std::string input) {
 
 	BigPrint printer; 
 	printer.driver(input);
